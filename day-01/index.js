@@ -1,21 +1,24 @@
 const fs = require("fs");
 
-let result;
 const content = fs.readFileSync("input.txt", "utf8");
-const tempArray = [0];
+const caloriesArray = [0];
 
-content.split("\n").map((meal) => {
+content.split("\n").map((mealCalories) => {
   // If the element is not empty
-  if (meal !== "") {
+  if (mealCalories !== "") {
     // Sum it with the last element in array
-    tempArray[tempArray.length - 1] =
-      tempArray[tempArray.length - 1] + parseInt(meal);
+    caloriesArray[caloriesArray.length - 1] =
+      caloriesArray[caloriesArray.length - 1] + parseInt(mealCalories);
   } else {
-    tempArray.push(0);
+    caloriesArray.push(0);
   }
 });
 
-const arrSorted = tempArray.sort((a, b) => a - b);
-result = arrSorted.pop();
+const caloriesArraySorted = caloriesArray.sort((a, b) => a - b);
+const topThreeValues = caloriesArraySorted.slice(-3);
 
-console.log(result);
+const highestValue = topThreeValues.at(-1);
+console.log(highestValue); // Answer to part 1
+
+const topThreeValuesSum = topThreeValues.reduce((acc, num) => acc + num);
+console.log(topThreeValuesSum); // Answer to part 2
